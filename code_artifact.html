@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快樂毛小孩 - 主子快樂，貓奴放心</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        milk: {
+                            50: '#FAF6F0',   // 淺奶茶底色
+                            100: '#F4ECE1',  // 卡片背景
+                            200: '#E8D8C3',  // 邊框 / 淺陰影
+                            300: '#D7C0A3',  // 輔助奶茶色
+                            500: '#B89774',  // 主色調（經典奶茶）
+                            600: '#9E7B56',  // 深奶茶色（按鈕/文字加強）
+                            800: '#5C4632',  // 深咖文字
+                            900: '#3D2D1E',  // 標題濃咖
+                        },
+                        cat: {
+                            pink: '#E8A598', // 貓肉墊粉
+                            orange: '#E09F67' // 溫暖橘黃
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FAF6F0;
+            color: #5C4632;
+        }
+        /* 自訂細緻滾動條 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D7C0A3;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B89774;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- 導覽列 Navbar -->
+    <nav class="sticky top-0 z-50 bg-milk-50/90 backdrop-blur-md border-b border-milk-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-milk-500 text-white flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-cat"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold text-milk-900 tracking-wide block">快樂毛小孩</span>
+                        <span class="text-xs text-milk-600 font-medium">貓咪專屬陪伴與照護工作室</span>
+                    </div>
+                </div>
+
+                <!-- 選單 - 電腦版 -->
+                <div class="hidden md:flex items-center space-x-8 text-milk-800 font-medium">
+                    <a href="#about" class="hover:text-milk-600 transition-colors">關於我們</a>
+                    <a href="#services" class="hover:text-milk-600 transition-colors">服務項目</a>
+                    <a href="#health-guide" class="hover:text-milk-600 transition-colors">衛教專區</a>
+                    <a href="#calculator" class="hover:text-milk-600 transition-colors">年齡換算器</a>
+                    <a href="#reviews" class="hover:text-milk-600 transition-colors">貓奴心聲</a>
+                    <a href="#faq" class="hover:text-milk-600 transition-colors">常見問題</a>
+                    <a href="#booking" class="bg-milk-500 hover:bg-milk-600 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-sm hover:shadow-md">
+                        <i class="fa-regular fa-calendar-check mr-1.5"></i>約時間聊聊
+                    </a>
+                </div>
+
+                <!-- 手機版選單按鈕 -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-milk-800 p-2 focus:outline-none" aria-label="開啟選單">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 手機版選單下拉 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-milk-100 border-b border-milk-200 px-4 pt-2 pb-4 space-y-3">
+            <a href="#about" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">關於我們</a>
+            <a href="#services" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">服務項目</a>
+            <a href="#health-guide" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">衛教專區</a>
+            <a href="#calculator" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">年齡換算器</a>
+            <a href="#reviews" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">貓奴心聲</a>
+            <a href="#faq" class="block py-2 text-milk-800 hover:text-milk-600 font-medium border-b border-milk-200/50">常見問題</a>
+            <a href="#booking" class="block text-center bg-milk-500 text-white py-3 rounded-full font-medium mt-2">
+                <i class="fa-regular fa-calendar-check mr-1.5"></i>約時間聊聊
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero 英雄區塊 -->
+    <header class="relative py-12 lg:py-20 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- 文字內容 -->
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-milk-200/60 text-milk-800 text-sm font-medium">
+                        <i class="fa-solid fa-heart text-cat-pink"></i> 專為加班忙碌的貓奴打造
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-milk-900 leading-tight">
+                        今天又加班了嗎？<br>
+                        家裡的主子，就交給我們吧！
+                    </h1>
+                    <p class="text-lg text-milk-800/90 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        嗨！今天上班辛苦囉～是不是又在擔心家裡的寶貝沒飯吃、或是孤單太久在發脾氣呢？
+                        別擔心，<strong>快樂毛小孩</strong>是你最可靠的貓咪後援會。放心地交給我，下班安心回家享用貓主子的呼嚕嚕吧！
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#booking" class="bg-milk-500 hover:bg-milk-600 text-white font-medium px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-all text-center">
+                            預約到府照顧 / 美容
+                        </a>
+                        <a href="#services" class="bg-milk-100 hover:bg-milk-200 text-milk-800 font-medium px-8 py-3.5 rounded-full border border-milk-300 transition-all text-center">
+                            看看服務內容
+                        </a>
+                    </div>
+                    <!-- 小貼紙 -->
+                    <div class="pt-4 flex items-center justify-center lg:justify-start gap-6 text-xs text-milk-600">
+                        <span><i class="fa-solid fa-check text-milk-500 mr-1"></i> 100% 到府陪伴紀錄</span>
+                        <span><i class="fa-solid fa-check text-milk-500 mr-1"></i> 一對一細心照顧</span>
+                        <span><i class="fa-solid fa-check text-milk-500 mr-1"></i> 定期回報動態</span>
+                    </div>
+                </div>
+
+                <!-- 圖片 / 視覺展示區 -->
+                <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+                    <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-milk-100">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" 
+                             alt="可愛的貓咪在溫暖的房間" 
+                             class="w-full h-[380px] sm:h-[450px] object-cover"
+                             onerror="this.src='https://placehold.co/800x600/E8D8C3/5C4632?text=快樂毛小孩'">
+                    </div>
+                    <!-- 裝飾背景卡片 -->
+                    <div class="absolute -bottom-6 -left-6 z-20 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-milk-200 hidden sm:block">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-cat-pink/20 text-cat-pink flex items-center justify-center">
+                                <i class="fa-solid fa-paw text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">今日貓奴滿意度</p>
+                                <p class="text-sm font-bold text-milk-900">100% 呼嚕嚕合格！</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -top-6 -right-6 -z-0 w-48 h-48 bg-milk-300/40 rounded-full blur-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 關於我們區塊 About -->
+    <section id="about" class="py-16 bg-milk-100/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <span class="text-cat-orange font-bold text-sm tracking-wider uppercase">Hello, Dear Friend</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-milk-900 mt-2 mb-6">歡迎來到「快樂毛小孩」，就像來到熟識的朋友家！</h2>
+            <p class="text-milk-800 leading-relaxed mb-8 text-base sm:text-lg">
+                我們知道，每天早出晚歸的上班生活已經夠累了。想到家裡的貓主子獨自顧家，總是忍不住懸著一顆心。<br class="hidden sm:inline">
+                「快樂毛小孩」不只是美容陪伴工作室，我們更像是你鄰居的好朋友。無論是臨時加個班需要人幫忙餵飯、還是週末想幫貓咪整理一下毛髮，只要你一聲吩咐，我們隨時都在！
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200">
+                    <div class="w-10 h-10 rounded-xl bg-milk-200 flex items-center justify-center text-milk-800 mb-4 text-lg">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <h3 class="font-bold text-milk-900 mb-2">安全與安心第一</h3>
+                    <p class="text-sm text-milk-800/80">鑰匙妥善保管，過程隨時傳照片、影片給你看，讓你上班不心慌。</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200">
+                    <div class="w-10 h-10 rounded-xl bg-milk-200 flex items-center justify-center text-milk-800 mb-4 text-lg">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="font-bold text-milk-900 mb-2">溫柔減壓照顧</h3>
+                    <p class="text-sm text-milk-800/80">懂貓咪的脾氣與微表情，不強迫、慢速引導，讓主子放鬆不緊張。</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200">
+                    <div class="w-10 h-10 rounded-xl bg-milk-200 flex items-center justify-center text-milk-800 mb-4 text-lg">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="font-bold text-milk-900 mb-2">配合上班族作息</h3>
+                    <p class="text-sm text-milk-800/80">早班、晚班或週末預約皆彈性，完美無縫接軌你的忙碌行程。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服務內容 Services -->
+    <section id="services" class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-milk-900">我們能為你做些什麼？</h2>
+                <p class="text-milk-600 mt-2">給主子最頂級的呵護，幫忙辛苦的貓奴分擔日常大小事（依貓咪體型透明計價）</p>
+            </div>
+
+            <!-- 貓咪體型與服務價目卡片區 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- 服務 1：貼心到府餵食 & 陪玩 -->
+                <div class="bg-milk-100 rounded-3xl p-6 border border-milk-200 flex flex-col justify-between hover:shadow-lg transition-all">
+                    <div>
+                        <div class="w-14 h-14 bg-milk-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md">
+                            <i class="fa-solid fa-house-chimney-user"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-milk-900 mb-2">貼心到府餵食 & 陪玩</h3>
+                        <p class="text-milk-800 text-xs leading-relaxed mb-4">
+                            上班加班出差都不怕！我們直接去家裡幫換新鮮水糧、清理貓砂盆，還會陪主子玩逗貓棒放電喔！
+                        </p>
+                        <ul class="text-xs text-milk-800 space-y-1.5 mb-5">
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>專業飼養環境檢查</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>乾淨鏟砂 & 補補罐頭</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>全程照片/影片拍照回報</li>
+                        </ul>
+                    </div>
+
+                    <!-- 體型價目明細表 -->
+                    <div class="bg-white/80 rounded-2xl p-3 border border-milk-200 text-xs space-y-2">
+                        <div class="font-bold text-milk-900 border-b border-milk-200 pb-1 flex justify-between">
+                            <span>體型分類</span>
+                            <span>到府服務 / 次</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-500"></i>小型貓 <span class="text-[10px] text-milk-600">(< 4kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 450</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-600"></i>中型貓 <span class="text-[10px] text-milk-600">(4-7kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 500</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-cat-orange"></i>大型貓 <span class="text-[10px] text-milk-600">(> 7kg/緬因)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 600</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 服務 2：溫和無壓力美容洗澡 -->
+                <div class="bg-milk-100 rounded-3xl p-6 border border-milk-200 flex flex-col justify-between hover:shadow-lg transition-all relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-cat-pink text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        熱門首選
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 bg-milk-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-milk-900 mb-2">溫和無壓力美容洗澡</h3>
+                        <p class="text-milk-800 text-xs leading-relaxed mb-4">
+                            採預約制的無壓沙龍，一次只接待一隻貓咪。給貓主子最高規格的洗沐體驗，剪指甲洗澡不再打仗！
+                        </p>
+                        <ul class="text-xs text-milk-800 space-y-1.5 mb-5">
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>指甲修剪 & 腳底毛整理</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>低噪吹風低壓力乾燥</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>耳道清潔與清爽爽梳毛</li>
+                        </ul>
+                    </div>
+
+                    <!-- 體型價目明細表 -->
+                    <div class="bg-white/80 rounded-2xl p-3 border border-milk-200 text-xs space-y-2">
+                        <div class="font-bold text-milk-900 border-b border-milk-200 pb-1 flex justify-between">
+                            <span>體型分類</span>
+                            <span>美容洗沐 / 次</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-500"></i>小型貓 <span class="text-[10px] text-milk-600">(< 4kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 1,000</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-600"></i>中型貓 <span class="text-[10px] text-milk-600">(4-7kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 1,200</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-cat-orange"></i>大型貓 <span class="text-[10px] text-milk-600">(> 7kg/長毛)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 1,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 服務 3：特別照顧 & 陪伴住宿 -->
+                <div class="bg-milk-100 rounded-3xl p-6 border border-milk-200 flex flex-col justify-between hover:shadow-lg transition-all">
+                    <div>
+                        <div class="w-14 h-14 bg-milk-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md">
+                            <i class="fa-solid fa-user-nurse"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-milk-900 mb-2">特別照顧 & 陪伴住宿</h3>
+                        <p class="text-milk-800 text-xs leading-relaxed mb-4">
+                            出遠門、返鄉不擔心。溫馨如家的小型住宿環境，包含特別照顧需求（如定期餵藥、點眼藥水等）。
+                        </p>
+                        <ul class="text-xs text-milk-800 space-y-1.5 mb-5">
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>獨立隱密溫馨貓房</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>遵照醫囑專業餵藥照護</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>全天候溫濕度監控</li>
+                        </ul>
+                    </div>
+
+                    <!-- 體型價目明細表 -->
+                    <div class="bg-white/80 rounded-2xl p-3 border border-milk-200 text-xs space-y-2">
+                        <div class="font-bold text-milk-900 border-b border-milk-200 pb-1 flex justify-between">
+                            <span>體型分類</span>
+                            <span>住宿照護 / 晚</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-500"></i>小型貓 <span class="text-[10px] text-milk-600">(< 4kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 700</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-milk-600"></i>中型貓 <span class="text-[10px] text-milk-600">(4-7kg)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 850</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800">
+                            <span><i class="fa-solid fa-cat mr-1 text-cat-orange"></i>大型貓 <span class="text-[10px] text-milk-600">(> 7kg/大空間)</span></span>
+                            <span class="font-bold text-milk-900">NT$ 1,050</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 服務 4：衛教諮詢 & 照護指導 -->
+                <div class="bg-milk-100 rounded-3xl p-6 border border-milk-200 flex flex-col justify-between hover:shadow-lg transition-all border-l-4 border-l-cat-orange">
+                    <div>
+                        <div class="w-14 h-14 bg-cat-orange text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-milk-900 mb-2">衛教諮詢 & 照護指導</h3>
+                        <p class="text-milk-800 text-xs leading-relaxed mb-4">
+                            新手貓奴不慌張！提供日常衛教諮詢、飲食調整建議、行為解讀與居家減壓環境規劃指導。
+                        </p>
+                        <ul class="text-xs text-milk-800 space-y-1.5 mb-5">
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>一對一專業衛教解答</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>飲食與飲水衛生建議</li>
+                            <li><i class="fa-solid fa-check text-cat-orange mr-1.5"></i>貓咪行為與減壓指導</li>
+                        </ul>
+                    </div>
+
+                    <!-- 衛教統一價目卡 -->
+                    <div class="bg-white/80 rounded-2xl p-3 border border-milk-200 text-xs space-y-2">
+                        <div class="font-bold text-milk-900 border-b border-milk-200 pb-1 flex justify-between">
+                            <span>服務類別</span>
+                            <span>諮詢費用 / 次</span>
+                        </div>
+                        <div class="flex justify-between items-center text-milk-800 py-1">
+                            <span><i class="fa-solid fa-paw mr-1 text-cat-orange"></i>全體型貓咪通用諮詢</span>
+                            <span class="font-bold text-milk-900">NT$ 600</span>
+                        </div>
+                        <p class="text-[10px] text-milk-600 pt-1 leading-tight border-t border-milk-100">
+                            * 包含 45 分鐘一對一諮詢與為寶貝量身打造的衛教照護計劃書。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 衛教諮詢 & 照護知識專區 Health Guide Section -->
+    <section id="health-guide" class="py-16 bg-milk-100/70 border-t border-b border-milk-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-cat-orange font-bold text-sm tracking-wider uppercase">Health & Care Tips</span>
+                <h2 class="text-3xl font-bold text-milk-900 mt-1">快樂貓奴衛教小小堂</h2>
+                <p class="text-milk-600 mt-2">分享實用的貓咪日常照護知識，讓寶貝活得健康又自在！</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 衛教知識卡片 1 -->
+                <div class="bg-white rounded-3xl p-8 border border-milk-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-cat-pink/20 text-cat-pink flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div>
+                                <span class="bg-milk-200 text-milk-800 text-xs px-2.5 py-1 rounded-full font-medium">知識專題 01</span>
+                                <h3 class="text-xl font-bold text-milk-900 mt-1">上班族必學！上班族貓咪居家減壓 3 大心法</h3>
+                            </div>
+                        </div>
+                        <p class="text-milk-800 text-sm leading-relaxed mb-4">
+                            獨自留在家中的貓咪容易因環境單調而產生無聊或焦慮感。透過簡單的環境豐富化，能大幅提升主子的幸福感：
+                        </p>
+                        <ul class="space-y-3 text-sm text-milk-800/90 mb-6">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-paw text-cat-orange mt-1"></i>
+                                <span><strong>創造垂直空間：</strong> 貓咪喜歡居高臨下俯瞰房間，準備貓跳台或空出櫃頂能帶來極大安全感。</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-paw text-cat-orange mt-1"></i>
+                                <span><strong>藏食玩具分流時間：</strong> 出門前在藏食玩具放置少許零食，消耗貓咪精力並分散注意力。</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-paw text-cat-orange mt-1"></i>
+                                <span><strong>保持氣味熟悉感：</strong> 留下有你味道的衣物在貓咪常睡的地方，能大幅減輕分離焦慮。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-milk-50 p-4 rounded-2xl border border-milk-200 flex items-center gap-3 text-xs text-milk-700">
+                        <i class="fa-solid fa-lightbulb text-amber-500 text-base"></i>
+                        <span>工作室小建議：若發現貓咪出現過度舔毛或破壞行為，歡迎預約我們的居家行為減壓指導！</span>
+                    </div>
+                </div>
+
+                <!-- 衛教知識卡片 2 -->
+                <div class="bg-white rounded-3xl p-8 border border-milk-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-milk-200 text-milk-800 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-glass-water"></i>
+                            </div>
+                            <div>
+                                <span class="bg-milk-200 text-milk-800 text-xs px-2.5 py-1 rounded-full font-medium">知識專題 02</span>
+                                <h3 class="text-xl font-bold text-milk-900 mt-1">不愛喝水怎麼辦？貓咪日常補水與飲食守則</h3>
+                            </div>
+                        </div>
+                        <p class="text-milk-800 text-sm leading-relaxed mb-4">
+                            貓咪源自沙漠祖先，口渴機制較不敏感，長期飲水量不足容易增加腎臟與下泌尿道疾病風險：
+                        </p>
+                        <ul class="space-y-3 text-sm text-milk-800/90 mb-6">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-droplet text-milk-500 mt-1"></i>
+                                <span><strong>多點放置水碗：</strong> 貓咪不喜歡水碗緊鄰貓砂盆或飯碗，建議在客廳與臥室動線上多設水點。</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-droplet text-milk-500 mt-1"></i>
+                                <span><strong>嘗試流動水或不同材質：</strong> 流動水能激發好奇心，玻璃或陶瓷碗比塑膠碗更能減少細菌殘留與異味。</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-droplet text-milk-500 mt-1"></i>
+                                <span><strong>適度搭配濕食湯罐：</strong> 每日安排一餐主食罐或副食罐加水，是最自然的補充水分方式。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-milk-50 p-4 rounded-2xl border border-milk-200 flex items-center gap-3 text-xs text-milk-700">
+                        <i class="fa-solid fa-stethoscope text-milk-600 text-base"></i>
+                        <span>工作室小建議：衛教諮詢服務中，我們能協助針對主子體型與生活習慣規劃個別化的補水方案喔！</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 寵物年齡換算器 Calculator Section -->
+    <section id="calculator" class="py-16 bg-milk-200/40">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-milk-200">
+                <div class="text-center mb-8">
+                    <div class="w-14 h-14 bg-cat-pink/20 text-cat-pink rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-milk-900">貓咪人類年齡換算器 🐾</h2>
+                    <p class="text-milk-600 text-sm mt-2">想知道家裡的主子現在相當於人類幾歲嗎？輸入實際年齡算算看吧！</p>
+                </div>
+
+                <div class="space-y-6 max-w-md mx-auto">
+                    <div>
+                        <label for="cat-age-input" class="block text-sm font-bold text-milk-900 mb-2">
+                            請輸入貓咪的實際年齡（歲）：
+                        </label>
+                        <div class="relative">
+                            <input type="number" 
+                                   id="cat-age-input" 
+                                   placeholder="例如：3 或 0.5（半歲）" 
+                                   min="0" 
+                                   max="35" 
+                                   step="0.1" 
+                                   class="w-full px-4 py-3.5 rounded-xl border border-milk-300 focus:outline-none focus:ring-2 focus:ring-milk-500 bg-milk-50 text-milk-900 text-base">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-milk-600 font-medium">歲</span>
+                        </div>
+                    </div>
+
+                    <button id="calc-btn" 
+                            class="w-full bg-milk-500 hover:bg-milk-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 開始換算
+                    </button>
+
+                    <!-- 結果顯示區域 (預設隱藏) -->
+                    <div id="calc-result" class="hidden mt-6 bg-milk-100 p-6 rounded-2xl border border-milk-300/80 text-center space-y-2">
+                        <p class="text-xs text-milk-600 font-medium">換算結果</p>
+                        <p class="text-milk-900 text-lg">
+                            主子相當於人類的 <span id="human-age-display" class="text-3xl font-bold text-cat-orange px-1">--</span> 歲！
+                        </p>
+                        <p id="age-stage-desc" class="text-xs text-milk-800/90 pt-1 font-medium"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 熟客評價 Reviews -->
+    <section id="reviews" class="py-16 bg-milk-100/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-cat-orange font-bold text-sm tracking-wider uppercase">Happy Customers</span>
+                <h2 class="text-3xl font-bold text-milk-900 mt-1">聽聽其他上班族貓奴怎麼說</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 評價卡片 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 mb-3 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-milk-800 text-sm leading-relaxed mb-4">
+                            「每次月底要加班留到很晚，都超感謝快樂毛小孩來幫我照顧小橘！拍的照片比我自己拍的還好看，看牠吃飽喝足的樣子我就安心了。」
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-milk-100">
+                        <div class="w-10 h-10 rounded-full bg-milk-300 flex items-center justify-center font-bold text-milk-800">
+                            林
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-milk-900">行銷企劃 林小姐</p>
+                            <p class="text-xs text-milk-600">主子：小橘 (橘貓)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 評價卡片 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 mb-3 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-milk-800 text-sm leading-relaxed mb-4">
+                            「我們家貓非常怕生，以前去大間美容店都嚇到發抖。來這裡一對一洗澡，美容師超級有耐心，洗完回家竟然沒有脾氣暴躁，太神了！」
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-milk-100">
+                        <div class="w-10 h-10 rounded-full bg-milk-300 flex items-center justify-center font-bold text-milk-800">
+                            陳
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-milk-900">工程師 陳先生</p>
+                            <p class="text-xs text-milk-600">主子：Mumu (美短)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 評價卡片 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-milk-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 mb-3 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-milk-800 text-sm leading-relaxed mb-4">
+                            「態度超級親切，完全就像熟朋友在聊天一樣～預約很彈性，對上班時間比較不固定的我來說簡直是救星！一定會繼續支持！」
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-milk-100">
+                        <div class="w-10 h-10 rounded-full bg-milk-300 flex items-center justify-center font-bold text-milk-800">
+                            張
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-milk-900">金融業 張小姐</p>
+                            <p class="text-xs text-milk-600">主子：圓圓 (布偶貓)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常見問題 FAQ -->
+    <section id="faq" class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-milk-900">貓奴常見小疑問</h2>
+                <p class="text-milk-600 mt-2">第一次約嗎？別緊張，你想問的我們都整理好囉！</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-milk-100 rounded-2xl p-6 border border-milk-200">
+                    <h3 class="text-lg font-bold text-milk-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-milk-500"></i>
+                        初次預約到府照護，需要先見面家訪嗎？
+                    </h3>
+                    <p class="text-milk-800 text-sm leading-relaxed pl-7">
+                        要的喔！為了貓主子的安全與熟悉感，第一次服務前我們會安排一次約15-20分鐘免費到府家訪，認識貓咪、確認飼料放置處與鑰匙交接方式。
+                    </p>
+                </div>
+
+                <div class="bg-milk-100 rounded-2xl p-6 border border-milk-200">
+                    <h3 class="text-lg font-bold text-milk-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-milk-500"></i>
+                        如果突然要臨時加班，當天可以臨時預約嗎？
+                    </h3>
+                    <p class="text-milk-800 text-sm leading-relaxed pl-7">
+                        沒問題！只要是配合過的老熟客，當天有空檔我們都會盡量安排。請直接在 LINE 上發個訊息給我們，我們會第一時間回覆你！
+                    </p>
+                </div>
+
+                <div class="bg-milk-100 rounded-2xl p-6 border border-milk-200">
+                    <h3 class="text-lg font-bold text-milk-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-milk-500"></i>
+                        家裡的貓咪非常兇或極度怕人，也能美容或照護嗎？
+                    </h3>
+                    <p class="text-milk-800 text-sm leading-relaxed pl-7">
+                        我們採取全程無壓力低刺激照護。若貓咪個性特別敏感，會先與您討論適應方案，絕不強迫施加壓力造成貓咪不適。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 預約與聯絡 Booking -->
+    <section id="booking" class="py-16 bg-milk-100/80 border-t border-milk-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-milk-200 text-center">
+                <span class="text-cat-pink font-bold text-sm tracking-wider uppercase">Contact Us</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-milk-900 mt-2 mb-4">今天想預約哪項服務呢？</h2>
+                <p class="text-milk-800 text-sm mb-6">隨時透過 LINE 或電話聯絡我們，像跟好朋友聊天一樣無壓力！</p>
+                
+                <!-- 工作室聯絡地址資訊區塊 -->
+                <div class="bg-milk-50 border border-milk-200 rounded-2xl p-4 mb-8 max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-milk-800">
+                    <div class="w-10 h-10 rounded-full bg-milk-200 text-milk-600 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-location-dot text-lg"></i>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <span class="font-bold text-milk-900 block">工作室聯絡地址</span>
+                        <span class="text-xs sm:text-sm text-milk-700">台北市大安區溫州街 88 號 1 樓（捷運公館站 3 號出口步行 5 分鐘）</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <a href="javascript:void(0)" onclick="alert('歡迎加官方 LINE 好友：@happy_pet 聯絡我們！')" class="w-full sm:w-auto bg-[#06C755] hover:bg-[#05b34c] text-white font-bold px-8 py-3.5 rounded-full flex items-center justify-center gap-2 transition-all shadow-md">
+                        <i class="fa-brands fa-line text-xl"></i> 加 LINE 好友預約
+                    </a>
+                    <a href="tel:0912345678" class="w-full sm:w-auto bg-milk-800 hover:bg-milk-900 text-white font-bold px-8 py-3.5 rounded-full flex items-center justify-center gap-2 transition-all shadow-md">
+                        <i class="fa-solid fa-phone text-sm"></i> 撥打電話聯絡
+                    </a>
+                </div>
+
+                <p class="text-xs text-milk-600">服務時間：週一至週日 09:00 - 21:00（配合上班族夜間到府服務）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 Footer -->
+    <footer class="bg-milk-900 text-milk-200 py-10 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 text-lg font-bold text-white">
+                <i class="fa-solid fa-cat text-cat-orange"></i> 快樂毛小孩工作室
+            </div>
+            <p class="text-xs text-milk-300">主子快樂，貓奴放心｜上班族貓奴的最佳夥伴</p>
+            <div class="pt-4 border-t border-milk-800 text-xs text-milk-400 space-y-1">
+                <p>© 快樂毛小孩工作室 All Rights Reserved.</p>
+                <p class="font-medium text-milk-300">製作：亞力山大.安德森</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 互動與計算邏輯 -->
+    <script>
+        // 手機版選單開關
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 貓咪年齡換算邏輯
+        const calcBtn = document.getElementById('calc-btn');
+        const catAgeInput = document.getElementById('cat-age-input');
+        const calcResult = document.getElementById('calc-result');
+        const humanAgeDisplay = document.getElementById('human-age-display');
+        const ageStageDesc = document.getElementById('age-stage-desc');
+
+        calcBtn.addEventListener('click', calculateCatAge);
+        catAgeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateCatAge();
+        });
+
+        function calculateCatAge() {
+            const age = parseFloat(catAgeInput.value);
+
+            if (isNaN(age) || age < 0) {
+                alert('請輸入有效的貓咪年齡喔！');
+                return;
+            }
+
+            let humanAge = 0;
+            let stageText = '';
+
+            if (age <= 1) {
+                // 1歲約等於人類15歲
+                humanAge = age * 15;
+                stageText = '🐱 幼貓期：活力滿滿、對世界充滿好奇心的小寶貝！';
+            } else if (age <= 2) {
+                // 2歲約等於人類24歲
+                humanAge = 15 + (age - 1) * 9;
+                stageText = '🐾 青年期：剛邁入成年，身材跟精力都處於黃金期！';
+            } else {
+                // 2歲以上，每過1年約增加4歲
+                humanAge = 24 + (age - 2) * 4;
+                if (age < 7) {
+                    stageText = '🐈 壯年期：穩重大方，非常懂事又討人喜歡的階段～';
+                } else if (age < 11) {
+                    stageText = '🍵 熟齡期：開始變得喜歡安靜曬太陽，需要多關注身體健康囉。';
+                } else {
+                    stageText = '👑 高齡尊榮期：資深老主子，要多給予溫柔關懷與定期的健康檢查喔！';
+                }
+            }
+
+            // 四捨五入到小數點第一位
+            humanAgeDisplay.textContent = Math.round(humanAge * 10) / 10;
+            ageStageDesc.textContent = stageText;
+
+            // 顯示結果
+            calcResult.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
